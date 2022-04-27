@@ -17,13 +17,15 @@ function App() {
       return
     }
     setToDo("");
+    setToDos((currentArray)=>[toDo, ...currentArray])
   }
   console.log(toDos)
   return (
     <div>
+      <h1>My TODOs ({toDos.length})</h1>
       <form onSubmit={onSubmit} action="">
         <input onChange={onChange} value={toDo} type="text" placeholder={"write your todo"}/>
-        <button>Add To Do</button>
+        <button onSubmit={onSubmit}>Add To Do</button>
       </form>
     </div>
   );
