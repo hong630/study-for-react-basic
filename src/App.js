@@ -6,33 +6,39 @@ import {useState} from 'react'
 
 
 function App() {
-  const [toDo, setToDo] = useState("");
-  const [toDos, setToDos] = useState([]);
-  const onChange =(event)=>{
-    setToDo(event.target.value)
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+  useEffect(()=>{
+    fetch("https://api.coinpaprika.com/v1/tickers")
+        .then((response) => response.json())
+        .then((json) => {setCoins(json); setLoading(false)});
+  },[])
+  const [money, setMoney] = useState(0);
+  const [cost , setCost] = useState(0);
+  const [result , setResult] = useState(0);
+  const onChange = (e) => {
+    setMoney(e.target.value);
+    console.log(money)
   }
-  const onSubmit = (event) =>{
-    event.preventDefault();
-    if(toDo === ""){
-      return
-    }
-    setToDo("");
-    setToDos((currentArray)=>[toDo, ...currentArray])
+  const getSymbol = (e) =>{
+    setCost(e.target.value);
   }
-  console.log(toDos)
+  const calculate =()=>{
+    setResult(Math.floor(money / cost))
+  }
   return (
     <div>
-      <h1>My TODOs ({toDos.length})</h1>
-      <form onSubmit={onSubmit} action="">
-        <input onChange={onChange} value={toDo} type="text" placeholder={"write your todo"}/>
-        <button onSubmit={onSubmit}>Add To Do</button>
-      </form>
-      <hr />
-      <ul>
-        {
-          toDos.map((item, index)=><li key={index}>{item}</li>)
-        }
-      </ul>
+      <h1>The Coins! ({coins.length})</h1>
+      <input type="text" placeholder='how much do you have?' onChange={onChange}/>
+      <button  onClick={calculate}>calculate!</button>
+      {loading ? <strong>loading..</strong> :
+          (<select id="select" onChange={getSymbol}>
+            {coins.map(
+                (coin)=><option value={coin.quotes.USD.price} key={coin.id}>{coin.name}({coin.symbol}) : {coin.quotes.USD.price} USD</option>)
+            }
+          </select>)
+      }
+      <div>you can get {result}</div>
     </div>
   );
 }
