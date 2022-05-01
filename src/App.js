@@ -1,27 +1,26 @@
-import React, {useEffect} from 'react'
+import React from "react";
+import {
+ BrowserRouter as Router,
+ Switch,
+ Route,
+ Link
+} from "react-router-dom";
+
 import ReactDOM from 'react-dom'
-import Button from "./Button"
+import Movie from "./components/Movie"
 import styles from './App.module.css'
 import {useState} from 'react'
 import {resetFirstInputPolyfill} from "web-vitals/dist/modules/lib/polyfills/firstInputPolyfill";
 
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const getMovies = async () =>{
-    const response = await fetch(`https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year`);
-    const json = await response.json();
-    setMovies(json.data.movies);
-    setLoading(false)
-  }
-  useEffect(()=>{
-    getMovies()
-  },[])
-  console.log(movies);
-  return (
-
-  )
+ return <Router>
+  <Switch>
+    <Router>
+     
+    </Router>
+  </Switch>
+ </Router>
 }
 
 export default App;
