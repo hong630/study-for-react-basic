@@ -11,14 +11,19 @@ import Movie from "./components/Movie"
 import styles from './App.module.css'
 import {useState} from 'react'
 import {resetFirstInputPolyfill} from "web-vitals/dist/modules/lib/polyfills/firstInputPolyfill";
+import Home from "./routes/Home";
+import Detail from "./routes/Detail";
 
 
 function App() {
  return <Router>
   <Switch>
-    <Router>
-     
-    </Router>
+    <Route path='/'>
+        <Home />
+    </Route>
+      <Route path='/movie/:id'>
+          <Detail />
+      </Route>
   </Switch>
  </Router>
 }

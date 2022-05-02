@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "@types/react";
+import React, {useEffect, useState} from 'react';
 import Movie from "../components/Movie";
 
 function Home(){
@@ -24,6 +24,7 @@ function Home(){
                             {movies.map((movie)=>
                                 <Movie
                                     key={movie.id}
+                                    id={movie.id}
                                     coverImg={movie.medium_cover_image}
                                     summary={movie.summary}
                                     title={movie.title}
